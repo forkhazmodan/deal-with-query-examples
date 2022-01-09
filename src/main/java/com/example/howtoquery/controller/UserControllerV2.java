@@ -2,6 +2,8 @@ package com.example.howtoquery.controller;
 
 import com.example.howtoquery.model.User;
 import com.example.howtoquery.service.UserService;
+import com.example.howtoquery.service.UserServiceV2;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/v1/users")
-public class UserController {
+@RequestMapping("/v2/users")
+public class UserControllerV2 {
 
-    public UserService userService;
+    private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserControllerV2(@Qualifier(value = "userServiceV2") UserService userService) {
         this.userService = userService;
     }
 
