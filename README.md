@@ -35,3 +35,4 @@ https://attacomsian.com/blog/spring-data-jpa-specifications
 
 Alternatives:
 -QueryDSL
+   https://habr.com/ru/post/344450/

@@ -3,12 +3,12 @@ package com.example.howtoquery.specefication;
 import com.example.howtoquery.model.User;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.Date;
 
 public class UserSpecification {
+
+    private UserSpecification() {}
 
     public static Specification<User> userNameLike(String name) {
         //Could be a problem when change name without
@@ -26,6 +26,21 @@ public class UserSpecification {
             ? cb.greaterThanOrEqualTo(root.get("age"), age)
             : cb.conjunction(); // and 1=1
 //            : cb.disjunction(); // and 0=1
+    }
+
+    public static Specification<User> createdBetween(Date createdFrom, Date createdTo) {
+        return (root, query, cb) -> {
+            Path<Date> createdAtPath = root.get("createdAt");
+            query.orderBy(cb.desc(createdAtPath));
+            return cb.and(
+                    createdFrom != null
+                            ? cb.greaterThanOrEqualTo(createdAtPath, createdFrom)
+                            : cb.conjunction(),
+                    createdTo != null
+                            ? cb.lessThan(createdAtPath, createdTo)
+                            : cb.conjunction()
+            );
+        };
     }
 
     public static Specification<User> userAgeLessThan(Integer age) {

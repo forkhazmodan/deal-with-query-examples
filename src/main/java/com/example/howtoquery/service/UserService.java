@@ -8,24 +8,33 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserService {
 
-    public UserRepository userRepository;
+    public final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public Page<User> getUsers(String name, Integer age, Pageable pageable) {
+    public Page<User> searchUsers(
+            String name,
+            Integer age,
+            Date createdFrom,
+            Date createdTo,
+            Pageable pageable) {
+
          Specification<User> specification = Specification
                  .where(UserSpecification.userNameLike(name))
-                 .and(UserSpecification.userAgeGreaterThanOrEqualTo(age));
+                 .and(UserSpecification.userAgeGreaterThanOrEqualTo(age))
+                 .and(UserSpecification.createdBetween(createdFrom, createdTo));
 
-        return this.getUsers(specification, pageable);
+        return this.searchUsers(specification, pageable);
     }
 
-    public Page<User> getUsers(Specification<User> userSpecification, Pageable pageable) {
+    public Page<User> searchUsers(Specification<User> userSpecification, Pageable pageable) {
         return userRepository.findAll(userSpecification, pageable);
     }
 }
