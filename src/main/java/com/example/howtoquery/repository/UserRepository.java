@@ -6,11 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 
-public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+public interface UserRepository extends JpaRepository<User, Long>,
+        JpaSpecificationExecutor<User>,
+        QuerydslPredicateExecutor<User> {
 
     @Query(value = "SELECT * FROM users WHERE 1=1 " +
             "AND ((first_name LIKE CONCAT('%',:name,'%') OR last_name LIKE CONCAT('%',:name,'%')) OR :name IS NULL) " +

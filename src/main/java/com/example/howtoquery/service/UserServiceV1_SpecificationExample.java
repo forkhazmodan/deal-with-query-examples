@@ -30,7 +30,7 @@ public class UserServiceV1_SpecificationExample implements UserService {
                  .where(UserSpecification.nameLike(name))
                  .and(UserSpecification.ageGreaterThanOrEqualTo(age))
                  .and(UserSpecification.createdBetween(createdFrom, createdTo))
-                 .and(UserSpecification.orderUsersByCreatedAt("DESC"));
+                 .and(UserSpecification.orderByCreatedAt("DESC"));
 
         return userRepository.findAll(specification, pageable);
     }

@@ -1,11 +1,14 @@
 package com.example.howtoquery.service;
 
+import com.example.howtoquery.model.QUser;
 import com.example.howtoquery.model.User;
 import com.example.howtoquery.repository.UserRepository;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Service("userServiceV3")
@@ -24,6 +27,28 @@ public class UserServiceV3_QueryDSLExample implements UserService {
             Date createdTo,
             Pageable pageable) {
 
-        return userRepository.searchUsers(name, age, createdFrom, createdTo, pageable);
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        if(name != null) {
+            booleanBuilder.and(QUser.user.firstName.like("%" + name + "%"));
+        }
+
+        if(age != null) {
+            booleanBuilder.and(QUser.user.age.goe(age));
+        }
+
+        if(createdFrom != null) {
+            booleanBuilder.and(QUser.user.createdAt.goe(createdFrom));
+        }
+//        else {
+//            // Default current time
+//            booleanBuilder.and(QUser.user.createdAt.goe(new Date(Instant.now().toEpochMilli())));
+//        }
+
+        if(createdTo != null) {
+            booleanBuilder.and(QUser.user.updatedAt.lt(createdTo));
+        }
+
+        return userRepository.findAll(booleanBuilder.getValue(), pageable);
     }
 }
