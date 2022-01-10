@@ -10,6 +10,15 @@ public class UserSpecification {
 
     private UserSpecification() {}
 
+    public static Specification<User> ageLessThan(Integer age) {
+        return new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.lessThan(root.get("age"/*TODO implement static metamodel*/), age);
+            }
+        };
+    }
+
     public static Specification<User> nameLike(String name) {
         return (root, query, cb) -> {
             if(name != null && !"".equals(name)) {
@@ -61,15 +70,6 @@ public class UserSpecification {
 //            }
 //        };
 //    }
-
-    public static Specification<User> ageLessThan(Integer age) {
-        return new Specification<User>() {
-            @Override
-            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.lessThan(root.get("age"/*TODO implement static metamodel*/), age);
-            }
-        };
-    }
 
     public static Specification<User> hasActiveStatus() {
         return (root, query, cb) -> cb.isTrue(root.get("isActive"/*TODO implement static metamodel*/).as(Boolean.class));
