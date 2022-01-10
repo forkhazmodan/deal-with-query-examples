@@ -27,9 +27,10 @@ public class UserServiceV1 implements UserService {
             Pageable pageable) {
 
          Specification<User> specification = Specification
-                 .where(UserSpecification.userNameLike(name))
-                 .and(UserSpecification.userAgeGreaterThanOrEqualTo(age))
-                 .and(UserSpecification.createdBetween(createdFrom, createdTo));
+                 .where(UserSpecification.nameLike(name))
+                 .and(UserSpecification.ageGreaterThanOrEqualTo(age))
+                 .and(UserSpecification.createdBetween(createdFrom, createdTo))
+                 .and(UserSpecification.orderUsersByCreatedAt("DESC"));
 
         return userRepository.findAll(specification, pageable);
     }
