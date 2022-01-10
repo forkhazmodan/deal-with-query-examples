@@ -16,15 +16,13 @@ public class UserSpecification {
                         cb.like(root.get("firstName" /*TODO implement static metamodel*/), "%" + name + "%"),
                         cb.like(root.get("lastName" /*TODO implement static metamodel*/), "%" + name + "%")
                 )
-                : cb.conjunction(); // and 1=1
-//                : cb.disjunction(); // and 0=1
+                : cb.conjunction();
     }
 
     public static Specification<User> userAgeGreaterThanOrEqualTo(Integer age) {
         return (root, query, cb) -> age != null
             ? cb.greaterThanOrEqualTo(root.get("age"/*TODO implement static metamodel*/), age)
-            : cb.conjunction(); // and 1=1
-//            : cb.disjunction(); // and 0=1
+            : cb.conjunction();
     }
 
     public static Specification<User> createdBetween(Date createdFrom, Date createdTo) {
@@ -49,5 +47,9 @@ public class UserSpecification {
                 return cb.lessThan(root.get("age"/*TODO implement static metamodel*/), age);
             }
         };
+    }
+
+    public static Specification<User> userHasActiveStatus() {
+        return (root, query, cb) -> cb.isTrue(root.get("isActive").as(Boolean.class));
     }
 }

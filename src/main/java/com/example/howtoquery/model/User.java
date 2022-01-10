@@ -30,6 +30,9 @@ public class User {
     @Column(name="age")
     private Integer age;
 
+    @Column(name="is_active")
+    private boolean isActive;
+
     @Column(name="created_at")
     private Date createdAt;
 

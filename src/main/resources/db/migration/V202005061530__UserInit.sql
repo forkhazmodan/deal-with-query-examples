@@ -15,8 +15,9 @@ CREATE TABLE users
     email      varchar(255) NOT NULL,
     first_name varchar(255) NOT NULL,
     last_name  varchar(255) NOT NULL,
+    is_active  tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
     created_at datetime     NOT NULL,
-    updated_at datetime
+    updated_at datetime     NOT NULL
 );
 
 INSERT INTO users (age, email, first_name, last_name, created_at, updated_at) VALUES
@@ -31,3 +32,8 @@ INSERT INTO users (age, email, first_name, last_name, created_at, updated_at) VA
 (37, 'user10@gmail.com', 'User10FirstName', 'User10LastName', @current - INTERVAL 9 DAY, @current - INTERVAL 9 DAY),
 (40, 'user11@gmail.com', 'User11FirstName', 'User11LastName', @current - INTERVAL 10 DAY, @current - INTERVAL 10 DAY),
 (42, 'user12@gmail.com', 'User12FirstName', 'User12LastName', @current - INTERVAL 11 DAY, @current - INTERVAL 11 DAY);
+
+INSERT INTO users (age, email, first_name, last_name, is_active, created_at, updated_at) VALUES
+(60, 'user13@gmail.com', 'User13FirstName', 'User13LastName', 0, @current - INTERVAL 12 DAY, @current - INTERVAL 12 DAY),
+(61, 'user14@gmail.com', 'User14FirstName', 'User14LastName', 0, @current - INTERVAL 13 DAY, @current - INTERVAL 13 DAY),
+(62, 'user15@gmail.com', 'User15FirstName', 'User15LastName', 0, @current - INTERVAL 14 DAY, @current - INTERVAL 14 DAY);
