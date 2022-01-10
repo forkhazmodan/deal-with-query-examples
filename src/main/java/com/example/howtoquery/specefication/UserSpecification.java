@@ -73,7 +73,7 @@ public class UserSpecification {
         return (root, query, cb) -> cb.isTrue(root.get("isActive"/*TODO implement static metamodel*/).as(Boolean.class));
     }
 
-    public static Specification<User> orderUsersByCreatedAt(String order) {
+    public static Specification<User> orderByCreatedAt(String order) {
         return (root, query, cb) -> {
             if(order.equals("ASC")) {
                 query.orderBy(cb.asc(root.get("createdAt"/*TODO implement static metamodel*/)));
