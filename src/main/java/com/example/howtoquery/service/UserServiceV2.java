@@ -2,10 +2,8 @@ package com.example.howtoquery.service;
 
 import com.example.howtoquery.model.User;
 import com.example.howtoquery.repository.UserRepository;
-import com.example.howtoquery.specefication.UserSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
