@@ -2,7 +2,6 @@ package com.example.howtoquery.controller;
 
 import com.example.howtoquery.model.User;
 import com.example.howtoquery.service.UserService;
-import com.example.howtoquery.service.UserServiceV2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

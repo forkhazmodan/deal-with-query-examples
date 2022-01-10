@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service("userServiceV2")
-public class UserServiceV2 implements UserService {
+public class UserServiceV2_NativeQueryExample implements UserService {
 
     public final UserRepository userRepository;
 
-    public UserServiceV2(UserRepository userRepository) {
+    public UserServiceV2_NativeQueryExample(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

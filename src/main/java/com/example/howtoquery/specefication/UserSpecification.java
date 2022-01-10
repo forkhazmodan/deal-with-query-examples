@@ -8,13 +8,11 @@ import java.util.Date;
 
 public class UserSpecification {
 
-    private UserSpecification() {}
-
     public static Specification<User> ageLessThan(Integer age) {
         return new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.lessThan(root.get("age"/*TODO implement static metamodel*/), age);
+                return null;
             }
         };
     }
