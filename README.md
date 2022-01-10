@@ -1,9 +1,3 @@
-JPA Specifications:
-Pros:
-
-Cons:
-Q: This does not provide examples of selecting a few columns as part of the query. I have more than 80 columns in my Entity class but want to retrieve only a few of them. How do I do it using Specification and QueryDSL
-A: You cant do it with Specifications. Best thing is to use custom query with entity manager
 
 ###QueryDsl
 - [querydsl](http://querydsl.com/)
