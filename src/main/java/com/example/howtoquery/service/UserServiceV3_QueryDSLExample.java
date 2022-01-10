@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Service("userServiceV3")
@@ -30,7 +29,9 @@ public class UserServiceV3_QueryDSLExample implements UserService {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         if(name != null) {
-            booleanBuilder.and(QUser.user.firstName.like("%" + name + "%"));
+            booleanBuilder.orAllOf(
+                    QUser.user.firstName.like("%" + name + "%"),
+                    QUser.user.lastName.like("%" + name + "%"));
         }
 
         if(age != null) {

@@ -19,7 +19,7 @@ public class UserSpecification {
 
     public static Specification<User> nameLike(String name) {
         return (root, query, cb) -> {
-            if(name != null && !"".equals(name)) {
+            if(name == null || "".equals(name)) {
                 return null;
             }
 
@@ -33,41 +33,41 @@ public class UserSpecification {
     public static Specification<User> ageGreaterThanOrEqualTo(Integer age) {
         return (root, query, cb) -> age != null
             ? cb.greaterThanOrEqualTo(root.get("age"/*TODO implement static metamodel*/), age)
-            : null;
-    }
-
-    public static Specification<User> createdBetween(Date createdFrom, Date createdTo) {
-        return (root, query, cb) -> {
-            Path<Date> createdAtPath = root.get("createdAt"/*TODO implement static metamodel*/);
-            query.orderBy(cb.desc(createdAtPath));
-            return cb.and(
-                    createdFrom != null
-                            ? cb.greaterThanOrEqualTo(createdAtPath, createdFrom)
-                            : cb.conjunction(),
-                    createdTo != null
-                            ? cb.lessThan(createdAtPath, createdTo)
-                            : cb.conjunction()
-            );
-        };
+            : cb.conjunction();
     }
 
 //    public static Specification<User> createdBetween(Date createdFrom, Date createdTo) {
 //        return (root, query, cb) -> {
 //            Path<Date> createdAtPath = root.get("createdAt"/*TODO implement static metamodel*/);
-//            if(createdFrom != null && createdTo != null) {
-//                return cb.and(
-//                        cb.greaterThanOrEqualTo(createdAtPath, createdFrom),
-//                        cb.lessThan(createdAtPath, createdTo)
-//                );
-//            } else if(createdFrom != null) {
-//                return cb.greaterThanOrEqualTo(createdAtPath, createdFrom);
-//            } else if(createdTo != null) {
-//                return cb.lessThan(createdAtPath, createdTo);
-//            } else {
-//                return null;
-//            }
+//            query.orderBy(cb.desc(createdAtPath));
+//            return cb.and(
+//                    createdFrom != null
+//                            ? cb.greaterThanOrEqualTo(createdAtPath, createdFrom)
+//                            : cb.conjunction(),
+//                    createdTo != null
+//                            ? cb.lessThan(createdAtPath, createdTo)
+//                            : cb.conjunction()
+//            );
 //        };
 //    }
+
+    public static Specification<User> createdBetween(Date createdFrom, Date createdTo) {
+        return (root, query, cb) -> {
+            Path<Date> createdAtPath = root.get("createdAt"/*TODO implement static metamodel*/);
+            if(createdFrom != null && createdTo != null) {
+                return cb.and(
+                        cb.greaterThanOrEqualTo(createdAtPath, createdFrom),
+                        cb.lessThan(createdAtPath, createdTo)
+                );
+            } else if(createdFrom != null) {
+                return cb.greaterThanOrEqualTo(createdAtPath, createdFrom);
+            } else if(createdTo != null) {
+                return cb.lessThan(createdAtPath, createdTo);
+            } else {
+                return null;
+            }
+        };
+    }
 
     public static Specification<User> hasActiveStatus() {
         return (root, query, cb) -> cb.isTrue(root.get("isActive"/*TODO implement static metamodel*/).as(Boolean.class));
