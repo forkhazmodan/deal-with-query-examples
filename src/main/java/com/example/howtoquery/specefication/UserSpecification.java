@@ -11,11 +11,10 @@ public class UserSpecification {
     private UserSpecification() {}
 
     public static Specification<User> userNameLike(String name) {
-        //Could be a problem when change name without
         return (root, query, cb) -> name != null
                 ? cb.or(
-                        cb.like(root.get("firstName"), "%" + name + "%"),
-                        cb.like(root.get("lastName"), "%" + name + "%")
+                        cb.like(root.get("firstName" /*TODO implement static metamodel*/), "%" + name + "%"),
+                        cb.like(root.get("lastName" /*TODO implement static metamodel*/), "%" + name + "%")
                 )
                 : cb.conjunction(); // and 1=1
 //                : cb.disjunction(); // and 0=1
@@ -23,14 +22,14 @@ public class UserSpecification {
 
     public static Specification<User> userAgeGreaterThanOrEqualTo(Integer age) {
         return (root, query, cb) -> age != null
-            ? cb.greaterThanOrEqualTo(root.get("age"), age)
+            ? cb.greaterThanOrEqualTo(root.get("age"/*TODO implement static metamodel*/), age)
             : cb.conjunction(); // and 1=1
 //            : cb.disjunction(); // and 0=1
     }
 
     public static Specification<User> createdBetween(Date createdFrom, Date createdTo) {
         return (root, query, cb) -> {
-            Path<Date> createdAtPath = root.get("createdAt");
+            Path<Date> createdAtPath = root.get("createdAt"/*TODO implement static metamodel*/);
             query.orderBy(cb.desc(createdAtPath));
             return cb.and(
                     createdFrom != null
@@ -47,7 +46,7 @@ public class UserSpecification {
         return new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.lessThan(root.get("age"), age);
+                return cb.lessThan(root.get("age"/*TODO implement static metamodel*/), age);
             }
         };
     }
