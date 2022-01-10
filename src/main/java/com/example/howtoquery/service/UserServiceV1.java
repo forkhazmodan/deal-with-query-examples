@@ -31,10 +31,6 @@ public class UserServiceV1 implements UserService {
                  .and(UserSpecification.userAgeGreaterThanOrEqualTo(age))
                  .and(UserSpecification.createdBetween(createdFrom, createdTo));
 
-        return this.searchUsers(specification, pageable);
-    }
-
-    public Page<User> searchUsers(Specification<User> userSpecification, Pageable pageable) {
-        return userRepository.findAll(userSpecification, pageable);
+        return userRepository.findAll(specification, pageable);
     }
 }
