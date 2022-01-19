@@ -38,6 +38,6 @@ public class UserControllerV2 {
                 age,
                 createdFrom,
                 createdTo,
-                PageRequest.of(page, 10)));
+                PageRequest.of(page, 3)));
     }
 }

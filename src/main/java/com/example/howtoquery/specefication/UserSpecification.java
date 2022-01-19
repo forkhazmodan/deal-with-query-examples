@@ -1,6 +1,7 @@
 package com.example.howtoquery.specefication;
 
 import com.example.howtoquery.model.User;
+import com.sun.istack.NotNull;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
@@ -8,7 +9,7 @@ import java.util.Date;
 
 public class UserSpecification {
 
-    public static Specification<User> ageLessThan(Integer age) {
+    public static Specification<User> ageLessThan(@NotNull Integer age) {
         return new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -17,7 +18,7 @@ public class UserSpecification {
         };
     }
 
-    public static Specification<User> nameLike(String name) {
+    public static Specification<User> nameLike(@NotNull String name) {
         return (root, query, cb) -> {
             if(name == null || "".equals(name)) {
                 return null;
