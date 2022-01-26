@@ -9,8 +9,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
-public class MyPageableHandlerMethodArgumentResolver extends PageableHandlerMethodArgumentResolverSupport implements PageableArgumentResolver {
+// https://question-it.com/questions/4463502/spring-data-jpa-limit-pagesize-kak-ustanovit-maxsize
+public class MyPageableHandlerMethodArgumentResolver extends PageableHandlerMethodArgumentResolver  {
 
     private static final Integer LIMIT_DEFAULT = 4;
     private static final Integer OFFSET_DEFAULT = 0;
@@ -29,13 +29,12 @@ public class MyPageableHandlerMethodArgumentResolver extends PageableHandlerMeth
         this.sortResolver = (SortArgumentResolver)(sortResolver == null ? DEFAULT_SORT_RESOLVER : sortResolver);
     }
 
-    public boolean supportsParameter(MethodParameter parameter) {
-        return Pageable.class.equals(parameter.getParameterType());
-    }
-
-    public Pageable resolveArgument(MethodParameter methodParameter, @Nullable ModelAndViewContainer mavContainer, NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
-        String limit = webRequest.getParameter(this.getParameterNameToUse("limit", methodParameter));
-        String offset = webRequest.getParameter(this.getParameterNameToUse("offset", methodParameter));
+    public Pageable resolveArgument(MethodParameter methodParameter,
+                                    @Nullable ModelAndViewContainer mavContainer,
+                                    NativeWebRequest webRequest,
+                                    @Nullable WebDataBinderFactory binderFactory) {
+        String limit = webRequest.getParameter("limit");
+        String offset = webRequest.getParameter("offset");
         String pageSize = limit;
         String page = getPage(limit, offset);
         Sort sort = this.sortResolver.resolveArgument(methodParameter, mavContainer, webRequest, binderFactory);
