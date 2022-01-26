@@ -26,20 +26,17 @@ public class PaginationMetadata {
   private String last;
 
   public static PaginationMetadata generatePaginationLinks(Page<?> page, HttpServletRequest currentRequest) {
-    var splittedStrings = currentRequest.getQueryString()
+    var queryString = currentRequest.getQueryString() == null
+            ? ""
+            : currentRequest.getQueryString();
+
+    var splittedStrings = queryString
             .replaceAll("^/+", "")
             .replaceAll("/+$", "")
             .split("&");
 
     var filters = Arrays.stream(splittedStrings)
-            .filter(string -> {
-              System.out.println(string);
-              System.out.println(string.matches("^limit.*"));
-              System.out.println(string.matches("^offset.*"));
-              System.out.println("=============");
-
-              return !(string.matches("^limit.*") || string.matches("^offset.*"));
-            })
+            .filter(string -> !(string.matches("^limit.*") || string.matches("^offset.*")))
             .collect(Collectors.toList());
 
     return generatePaginationLinks(
