@@ -1,4 +1,4 @@
-package com.example.howtoquery.utils;
+package com.example.howtoquery.utils.resolver;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.PageRequest;

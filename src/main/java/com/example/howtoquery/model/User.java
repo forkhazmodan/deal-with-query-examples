@@ -1,5 +1,6 @@
 package com.example.howtoquery.model;
 
+import com.example.howtoquery.contracts.Patchable;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Table(name = "users")
-public class User {
+public class User implements Patchable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
