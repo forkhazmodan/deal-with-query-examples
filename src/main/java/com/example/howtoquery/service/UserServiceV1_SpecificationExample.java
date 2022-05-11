@@ -34,4 +34,8 @@ public class UserServiceV1_SpecificationExample implements UserService {
 
         return userRepository.findAll(specification, pageable);
     }
+
+    public User searchUser(Long id) {
+        return userRepository.getById(id);
+    }
 }

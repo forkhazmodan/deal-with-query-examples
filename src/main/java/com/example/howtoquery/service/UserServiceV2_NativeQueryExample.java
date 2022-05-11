@@ -26,4 +26,8 @@ public class UserServiceV2_NativeQueryExample implements UserService {
 
         return userRepository.searchUsers(name, age, createdFrom, createdTo, pageable);
     }
+
+    public User searchUser(Long id) {
+        return userRepository.getById(id);
+    }
 }

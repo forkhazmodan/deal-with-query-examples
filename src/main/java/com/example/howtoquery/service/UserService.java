@@ -13,4 +13,6 @@ public interface UserService {
             Date createdFrom,
             Date createdTo,
             Pageable pageable);
+
+    User searchUser(Long id);
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/v3/users")
-public class UserControllerV3 {
+@RequestMapping("/v4/users")
+public class UserControllerV4 {
 
     private final UserService userService;
 
-    public UserControllerV3(@Qualifier(value = "userServiceV3") UserService userService) {
+    public UserControllerV4(@Qualifier(value = "userServiceV1") UserService userService) {
         this.userService = userService;
     }
 
@@ -42,5 +43,11 @@ public class UserControllerV3 {
                 createdFrom,
                 createdTo,
                 PageRequest.of(page, 10)));
+    }
+
+//    @JsonView(Views.Public.class)
+    @GetMapping("{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.searchUser(id));
     }
 }

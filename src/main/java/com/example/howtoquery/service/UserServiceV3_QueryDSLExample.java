@@ -52,4 +52,8 @@ public class UserServiceV3_QueryDSLExample implements UserService {
 
         return userRepository.findAll(booleanBuilder.getValue(), pageable);
     }
+
+    public User searchUser(Long id) {
+        return userRepository.getById(id);
+    }
 }

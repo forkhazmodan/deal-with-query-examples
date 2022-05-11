@@ -8,8 +8,8 @@ import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
 @JsonComponent
 public class PageImplJacksonSerializer extends JsonSerializer<PageImpl<?>> {
@@ -26,8 +26,10 @@ public class PageImplJacksonSerializer extends JsonSerializer<PageImpl<?>> {
         var links = PaginationMetadata.generatePaginationLinks(page, request);
 
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeObjectField("records", page.getContent());
         jsonGenerator.writeObjectField("links", links);
+        jsonGenerator.writeFieldName("records");
+        // https://github.com/mefernandez/spring-jpa-lazy-projections
+        serializerProvider.defaultSerializeValue(page.getContent(), jsonGenerator);
         jsonGenerator.writeEndObject();
     }
 }

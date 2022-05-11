@@ -1,6 +1,8 @@
 package com.example.howtoquery.model;
 
 import com.example.howtoquery.contracts.Patchable;
+import com.example.howtoquery.contracts.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -17,6 +19,7 @@ import java.util.Date;
 public class User implements Patchable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.Public.class)
     private Long id;
 
     @Column(name="first_name")
