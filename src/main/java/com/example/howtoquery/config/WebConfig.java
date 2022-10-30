@@ -21,6 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add( new MyPageableHandlerMethodArgumentResolver());
-        argumentResolvers.add( new PatchRequestArgumentResolver(programmaticallyValidatingService));
+//        argumentResolvers.add( new PatchRequestArgumentResolver(programmaticallyValidatingService));
     }
 }

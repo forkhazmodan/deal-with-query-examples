@@ -3,11 +3,23 @@ package com.example.howtoquery.model;
 import com.example.howtoquery.contracts.Patchable;
 import com.example.howtoquery.contracts.Views;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.sun.istack.NotNull;
-import lombok.*;
-
-import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Builder(toBuilder = true)
@@ -16,6 +28,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Table(name = "users")
+@DynamicUpdate
 public class User implements Patchable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,8 +51,21 @@ public class User implements Patchable {
     private boolean isActive;
 
     @Column(name="created_at")
-    private Date createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @Column(name="updated_at")
-    private Date updatedAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    public User(User user) {
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.age = user.getAge();
+        this.isActive = user.isActive();
+        this.createdAt = user.getCreatedAt();
+        this.updatedAt = user.getUpdatedAt();
+    }
 }

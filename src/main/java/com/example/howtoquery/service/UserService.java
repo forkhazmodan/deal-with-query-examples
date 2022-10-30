@@ -15,4 +15,6 @@ public interface UserService {
             Pageable pageable);
 
     User searchUser(Long id);
+    User createUser(User user);
+    User updateUser(User user);
 }

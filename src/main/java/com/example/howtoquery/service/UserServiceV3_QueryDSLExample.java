@@ -56,4 +56,14 @@ public class UserServiceV3_QueryDSLExample implements UserService {
     public User searchUser(Long id) {
         return userRepository.getById(id);
     }
+
+    @Override
+    public User createUser(User user) {
+        return null;
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return null;
+    }
 }
