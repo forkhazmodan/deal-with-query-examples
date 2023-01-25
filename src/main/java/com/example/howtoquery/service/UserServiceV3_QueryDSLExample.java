@@ -66,4 +66,8 @@ public class UserServiceV3_QueryDSLExample implements UserService {
     public User updateUser(User user) {
         return null;
     }
+
+    public void deleteUser(Long id) {
+
+    }
 }

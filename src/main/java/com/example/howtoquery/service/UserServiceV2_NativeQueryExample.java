@@ -40,4 +40,8 @@ public class UserServiceV2_NativeQueryExample implements UserService {
     public User updateUser(User user) {
         return null;
     }
+
+    public void deleteUser(Long id) {
+
+    }
 }

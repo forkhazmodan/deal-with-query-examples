@@ -1,6 +1,7 @@
 package com.example.howtoquery.service;
 
 import com.example.howtoquery.event.UserCreated;
+import com.example.howtoquery.event.UserDeleted;
 import com.example.howtoquery.event.UserUpdated;
 import com.example.howtoquery.model.User;
 import com.example.howtoquery.repository.UserRepository;
@@ -62,5 +63,12 @@ public class UserServiceV1_SpecificationExample implements UserService {
 
         eventPublisher.publishEvent(new UserUpdated(oldValue, save));
         return save;
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        User byId = userRepository.findById(id).get();
+        userRepository.delete(byId);
+        eventPublisher.publishEvent(new UserDeleted(byId));
     }
 }

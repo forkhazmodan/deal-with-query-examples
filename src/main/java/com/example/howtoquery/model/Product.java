@@ -1,5 +1,9 @@
 package com.example.howtoquery.model;
 
+import com.example.howtoquery.converter.ProductRatingConverter;
+import com.example.howtoquery.converter.ProductTypeConverter;
+import com.example.howtoquery.enumeration.ProductRating;
+import com.example.howtoquery.enumeration.ProductType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,4 +25,10 @@ public class Product {
 
     @Column(name="price")
     private Long price;
+
+    @Convert(converter = ProductTypeConverter.class)
+    private ProductType productType;
+
+    @Convert(converter = ProductRatingConverter.class)
+    private ProductRating productRating;
 }
